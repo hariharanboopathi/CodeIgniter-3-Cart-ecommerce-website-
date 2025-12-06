@@ -232,6 +232,13 @@ public function test()
     {
         $this->load->view('user/Checkout');
     }
+public function Usser(){
+
+this->load->view('user/logout');
+session.close();
+
+
+}
 
    
 }
