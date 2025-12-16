@@ -97,4 +97,14 @@ class Admin extends CI_Controller {
         redirect('admin/index');
     }
 }
+
+
+
+
+public function logout (){
+
+this->session-desstory();
+
+
+}
 ?>
