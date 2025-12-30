@@ -107,4 +107,23 @@ this->session-desstory();
 
 
 }
+
+
+//
+public function updatePaymentStatus()
+{
+    $db = \Config\Database::connect();
+
+    // Example: update pending payments every 15 minutes
+    $db->table('payments')
+       ->where('status', 'pending')
+       ->where('created_at <', date('Y-m-d H:i:s', strtotime('-15 minutes')))
+       ->update([
+           'status'     => 'expired',
+           'updated_at' => date('Y-m-d H:i:s')
+       ]);
+
+    return true;
+}
+
 ?>
