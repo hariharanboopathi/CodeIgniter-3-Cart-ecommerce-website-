@@ -152,5 +152,31 @@ $db = \Config\Database::connect();
         $builder->join('variant_options', 'variant_options.variant_id = product_variants.id', 'left');
 
 } 
+$orders = [];
 
+foreach ($result as $row) {
+    $key = $row['order_id'].'_'.$row['sku'];
+
+    if (!isset($orders[$key])) {
+        $orders[$key] = [
+            'user_name' => $row['user_name'],
+            'order_id' => $row['order_id'],
+            'product_name' => $row['product_name'],
+            'sku' => $row['sku'],
+            'qty' => $row['qty'],
+            'price' => $row['price'],
+            'options' => []
+        ];
+    }
+
+    if ($row['option_name']) {
+        $orders[$key]['options'][$row['option_name']] = $row['option_value'];
+    }
+}
+
+echo '<pre>';
+print_r(array_values($orders));
+exit;
+
+// check tomorrow 
 ?>
