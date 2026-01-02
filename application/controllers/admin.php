@@ -126,4 +126,31 @@ public function updatePaymentStatus()
     return true;
 }
 
+
+function test() {
+
+
+$db = \Config\Database::connect();
+
+        $builder = $db->table('orders');
+
+        $builder->select('
+            users.name AS user_name,
+            orders.id AS order_id,
+            products.product_name,
+            product_variants.sku,
+            order_items.qty,
+            order_items.price,
+            variant_options.option_name,
+            variant_options.option_value
+        ');
+
+        $builder->join('users', 'users.id = orders.user_id');
+        $builder->join('order_items', 'order_items.order_id = orders.id');
+        $builder->join('products', 'products.id = order_items.product_id');
+        $builder->join('product_variants', 'product_variants.id = order_items.variant_id');
+        $builder->join('variant_options', 'variant_options.variant_id = product_variants.id', 'left');
+
+} 
+
 ?>
